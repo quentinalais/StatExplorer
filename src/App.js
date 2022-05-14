@@ -3,25 +3,33 @@ import "./App.css";
 import Header from "./Component/Header";
 import Footer from "./Component/Footer";
 import Form from "./Component/Form";
+import {
+  BrowserRouter ,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+import { Home } from "./Component/Home";
+import { Dashboard } from "./Dashboard/Dashboard";
+
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-   
+   <BrowserRouter>
+      <div>
+        <Header></Header>
 
-      <Form>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          
+          <Route path="/Dashboard" element={<Dashboard />}/>
+        </Routes>
 
-      </Form>
+        <Footer></Footer>
 
+      </div>
       
-        
-
-
-
-     
-      <Footer/>
-    </div>
+   </BrowserRouter>
   );
 }
 
