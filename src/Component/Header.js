@@ -2,37 +2,45 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
+        <a class="navbar-brand px-5" href="/">
+          Bonzai
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarsExampleDefault"
+          aria-controls="navbarsExampleDefault"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-<header>
-    <div class="px-3 py-2 bg-secondary text-black">
-      <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use href="#bootstrap"></use></svg>
-          </a>
-          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-            <li>
-              <a href="/" class="nav-link text-white">
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use href="/Home"></use></svg>
-                Home
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">
+                Home{" "}
               </a>
             </li>
-            <li>
-              <a href="/Dashboard" class="nav-link text-white">
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use href="#speedometer2"></use></svg>
+            <li class="nav-item">
+              <a class="nav-link" href="/Dashboard">
                 Dashboard
               </a>
             </li>
-           
+            <li class="nav-item">
+              <a class="nav-link " href="/Contact">
+                Contact
+              </a>
+            </li>
           </ul>
         </div>
-      </div>
-    </div>
-   
-  </header>
-    </div>
-  )
+      </nav>
+    </header>
+  );
 }
 
 export default Header
