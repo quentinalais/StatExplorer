@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form } from 'react-bootstrap';
+import { Form ,Button} from 'react-bootstrap';
 
 export class Attestation extends Component {
   constructor(props) {
@@ -8,12 +8,29 @@ export class Attestation extends Component {
         data:{
             category:'',
             justification:''
-
-        }
+        },
+        attestation:{
+          category:'',
+          justification:''
+      },
+        showAttestation:false
      };
   }
 
+ formOnChange=(event)=>{
+
+   var current=this.state.data
+   current[event.target.name]=event.target.value
+   this.setState({data:current})
+ }
+
+ onSubmit=(event)=>{
+  event.preventDefault()
+  this.setState({showAttestation:true})
+ }
+
   render() {
+    console.log(this.state.attestation)
     return (
       <div>
         <div class="card border-dark">
@@ -29,7 +46,9 @@ export class Attestation extends Component {
 
         <div class="card border-dark">
           <div class="card-body ">
-            <Form>
+            <div class="row">
+              <div class="col-6">
+              <Form onSubmit={this.onSubmit}>
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
@@ -39,6 +58,7 @@ export class Attestation extends Component {
                   type="text"
                   placeholder="Please enter a category"
                   name="category"
+                  onChange={this.formOnChange}
                 />
               </Form.Group>
               <Form.Group
@@ -50,9 +70,30 @@ export class Attestation extends Component {
                   as="textarea"
                   rows={3}
                   placeholder="Please provide justification."
+                  name="justification"
+                  onChange={this.formOnChange}
                 />
               </Form.Group>
+
+              <Button type="submit"> Create attestation</Button>
+
             </Form>
+
+              </div>
+              <div class="col-6">
+                <div >
+
+                {this.state.showAttestation?this.state.data.category:''}
+                <br/>
+                 {this.state.showAttestation?this.state.data.justification:''}
+                  
+
+                </div>
+
+              </div>
+
+            </div>
+           
           </div>
         </div>
       </div>

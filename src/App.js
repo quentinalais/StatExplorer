@@ -19,7 +19,6 @@ function App() {
       <div class="mx-5 py-4">
         <Routes>
           <Route path="/" element={<Home />} />
-
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Attestation" element={<Attestation />} />
         </Routes>
