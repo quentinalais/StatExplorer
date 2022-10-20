@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { Home } from "./Component/Home";
 import { Dashboard } from "./Dashboard/Dashboard";
-import Attestation from "./Dashboard/Attestation";
+import Todo from "./Dashboard/Todo";
 
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/Attestation" element={<Attestation />} />
+          <Route path="/Todo" element={<Todo />} />
         </Routes>
       </div>
 
