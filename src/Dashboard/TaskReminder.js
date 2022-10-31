@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, createContext } from "react";
 import { Grid, GridItem, Button} from "@chakra-ui/react";
 import ModalTask from "./ModalTask";
 import { AiOutlineDelete , AiOutlineEdit} from 'react-icons/ai';
+import useLocalStorage  from "../hooks/useLocalStorage";
 
 import {
     List,
@@ -17,7 +18,7 @@ import {
   } from '@chakra-ui/react'
 
 function TaskReminder() {
-  const [data, setdata] = useState([])  
+  const [data, setdata] = useLocalStorage('data',[])  
 
   const addTask =(task_name)=>{
     var current = {name : task_name}
@@ -108,11 +109,11 @@ const MyBox = ({ text }) => {
           /></Text>
         </Center>
         <Center flex="1" >
-          <Text><AiOutlineDelete 
+          <AiOutlineDelete 
           size="20px"
           onMouseOver={({target})=>target.style.color="black"} 
           onMouseOut={({target})=>target.style.color="white"}
-          /></Text>
+          />
         </Center>
         
       </Flex>
