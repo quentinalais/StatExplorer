@@ -31,12 +31,6 @@ const Header = () => {
                 Dashboard
               </a>
             </li>
-           
-            <li class="nav-item">
-              <a class="nav-link " href="/TaskReminder">
-                Task Reminder
-              </a>
-            </li>
           </ul>
         </div>
       </nav>
