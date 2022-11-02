@@ -9,23 +9,27 @@ import {
 } from "react-router-dom";
 import { Home } from "./Component/Home";
 import { Dashboard } from "./Dashboard/Dashboard";
-import Todo from "./Dashboard/Todo";
+import TaskReminder from "./Dashboard/TaskReminder";
+import { ChakraProvider } from '@chakra-ui/react'
 
 
 function App() {
   return (
+<ChakraProvider>
     <BrowserRouter>
       <Header></Header>
       <div class="mx-5 py-4">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/Todo" element={<Todo />} />
+          <Route path="/TaskReminder" element={<TaskReminder/>} />
+
         </Routes>
       </div>
 
       <Footer></Footer>
     </BrowserRouter>
+    </ChakraProvider>
   );
 }
 
