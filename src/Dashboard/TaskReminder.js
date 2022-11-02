@@ -1,23 +1,18 @@
-import React, { useState, useContext, createContext } from "react";
-import { Grid, GridItem, Button} from "@chakra-ui/react";
+import React from "react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import ModalTask from "./ModalTask";
 import { AiOutlineDelete , AiOutlineEdit} from 'react-icons/ai';
 import useLocalStorage  from "../hooks/useLocalStorage";
 import { v4 as uuidv4 } from 'uuid';
-
-
 import {
-    List,
     ListItem,
-    ListIcon,
-    OrderedList,
     UnorderedList,
     Box,
     Flex,
     Center,
     Text,
-    Square
   } from '@chakra-ui/react'
+
 
 function TaskReminder() {
   const [data, setdata] = useLocalStorage('data',[])  
