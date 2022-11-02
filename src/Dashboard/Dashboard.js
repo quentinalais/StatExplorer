@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import TaskReminder from './TaskReminder';
+import Inflation from './Inflation';
 
 
 export const Dashboard = () => {
@@ -9,7 +10,7 @@ export const Dashboard = () => {
       <Tabs>
         <TabList>
           <Tab>Task Reminder</Tab>
-          <Tab> TBD Project</Tab>
+          <Tab> ONS Datasets</Tab>
           
         </TabList>
 
@@ -18,7 +19,7 @@ export const Dashboard = () => {
             <TaskReminder />
           </TabPanel>
           <TabPanel>
-            <p>This is a placeholder for a new project to be added. </p>
+            <Inflation />
           </TabPanel>
         
         </TabPanels>
