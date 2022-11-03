@@ -28,7 +28,6 @@ function Inflation() {
         }))
 
         var list_unique_frequencies = [...new Set(datasets.map(element=>element.release_frequency))]
-        console.log(list_unique_frequencies)
         let result = {}
         list_unique_frequencies.forEach((frequency,id)=>{
             result[frequency] = color_palette[id]
