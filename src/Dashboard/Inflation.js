@@ -42,6 +42,7 @@ function Inflation() {
   
 
   if (!datasets) return null;
+  if (!frequencies) return null;
   return (<div>
      <Text fontSize='4xl' as='b'> ONS Datasets</Text>
      <br/>
