@@ -66,7 +66,7 @@ function Feature({ title, desc, keyword,release, ...rest }) {
     }
 
     return (
-      <Box p={5} shadow='md'h='100%' borderWidth='1px' {...rest}>
+      <Box p={5} shadow='md'h='100%' w='500px' borderWidth='1px' {...rest}>
         <Heading fontSize='xl'>{title}</Heading>
         <Keywords />
         
