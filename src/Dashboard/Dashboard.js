@@ -9,17 +9,18 @@ export const Dashboard = () => {
     <div>
       <Tabs>
         <TabList>
-          <Tab>Task Reminder</Tab>
-          <Tab> ONS Datasets</Tab>
+          <Tab  _selected={{ color: 'teal', fontWeight:'bold'}}> ONS Datasets</Tab>
+          <Tab _selected={{ color: 'teal', fontWeight:'bold'}}>Task Reminder</Tab>
           
         </TabList>
 
         <TabPanels>
-          <TabPanel>
-            <TaskReminder />
-          </TabPanel>
+          
           <TabPanel>
             <Inflation />
+          </TabPanel>
+          <TabPanel>
+            <TaskReminder />
           </TabPanel>
         
         </TabPanels>
