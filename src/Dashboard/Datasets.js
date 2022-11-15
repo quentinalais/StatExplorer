@@ -14,12 +14,13 @@ const color_palette = ["orange",
 "purple",
 ]
 
-function Inflation() {
+function ONSDatasets() {
   const [datasets, setdatasets] = useState(null)
   const [frequencies, setfrequencies] = useState(null)
 
   useEffect(() => {
-    axios.get(ONS_API).then(response=>{
+    if(datasets === null){
+      axios.get(ONS_API).then(response=>{
         setdatasets(response.data.items.map(element=>{
             if(element.release_frequency==='Annual'){
                 return {...element, release_frequency:'Annually'}
@@ -35,15 +36,16 @@ function Inflation() {
        setfrequencies(result)
 
     })
-    
+    }
   }, [datasets])
 
+  console.log(datasets)
   
 
   if (!datasets) return null;
   if (!frequencies) return null;
   return (<div>
-     <Text fontSize='4xl' as='b'> ONS Datasets</Text>
+     <Text fontSize='2xl' as='b'> Datasets</Text>
      <br/>
 
      <Wrap spacing='15px' >
@@ -71,7 +73,7 @@ function Inflation() {
   )
 }
 
-export default Inflation
+export default ONSDatasets;
 
 function Feature({ title, desc, keyword,release, release_frequency, frequencies, ...rest }) {
     const Keywords = ()=>{
