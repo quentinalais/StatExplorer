@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import { Box, Divider, Heading, Tag, Text, Wrap, WrapItem } from '@chakra-ui/react'
 import axios from 'axios'
-import {  Box, Heading, Text, Wrap, WrapItem, Tag, Divider} from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 
 
 const ONS_API = 'https://api.beta.ons.gov.uk/v1/datasets'
@@ -16,38 +16,45 @@ const color_palette = ["orange",
 
 function ONSDatasets() {
   const [datasets, setdatasets] = useState(null)
-  const [frequencies, setfrequencies] = useState(null)
+  const [frequencies, setfrequencies] = useState([])
 
   useEffect(() => {
-    if(datasets === null){
-      axios.get(ONS_API).then(response=>{
-        setdatasets(response.data.items.map(element=>{
-            if(element.release_frequency==='Annual'){
-                return {...element, release_frequency:'Annually'}
+    var isRendered = true;
+    axios.get(ONS_API).then((response) => {
+      if (isRendered) {
+        setdatasets(
+          response.data.items.map((element) => {
+            if (element.release_frequency === "Annual") {
+              return { ...element, release_frequency: "Annually" };
             }
-            return {...element}
-        }))
+            return { ...element };
+          })
+        );
+      }
+    });
+    return () => {
+      isRendered = false;
+    };
+  }, []);
 
-        var list_unique_frequencies = [...new Set(datasets.map(element=>element.release_frequency))]
-        let result = {}
-        list_unique_frequencies.forEach((frequency,id)=>{
-            result[frequency] = color_palette[id]
-       })
-       setfrequencies(result)
-
-    })
+  useEffect(() => {
+    if (datasets) {
+      var list_unique_frequencies = [
+        ...new Set(datasets.map((element) => element.release_frequency)),
+      ];
+      let result = {};
+      list_unique_frequencies.forEach((frequency, id) => {
+        result[frequency] = color_palette[id];
+      });
+      setfrequencies(result);
     }
-  }, [datasets])
-
-  console.log(datasets)
+  }, [datasets]);
   
-
   if (!datasets) return null;
-  if (!frequencies) return null;
+  if (!frequencies) return null
   return (<div>
      <Text fontSize='2xl' as='b'> Datasets</Text>
      <br/>
-
      <Wrap spacing='15px' >
         {datasets.map((element,id)=>{
         return(<WrapItem>
@@ -63,19 +70,14 @@ function ONSDatasets() {
             
         )
         })}
-     
-    
     </Wrap>
   </div>
-   
-
-    
   )
 }
 
 export default ONSDatasets;
 
-function Feature({ title, desc, keyword,release, release_frequency, frequencies, ...rest }) {
+function Feature({ title, desc, keyword,release, frequencies, release_frequency, ...rest }) {
     const Keywords = ()=>{
         if(!keyword) return <div></div>
         return(
