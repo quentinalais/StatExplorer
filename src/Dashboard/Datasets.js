@@ -1,6 +1,7 @@
-import { Box, Divider, Heading, Tag, Text, Wrap, WrapItem } from '@chakra-ui/react'
+import { Box, Divider, Heading, Tag, Text, Wrap, WrapItem , HStack, Button, LinkBox, LinkOverlay} from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 
 const ONS_API = 'https://api.beta.ons.gov.uk/v1/datasets'
@@ -17,11 +18,15 @@ const color_palette = ["orange",
 function ONSDatasets() {
   const [datasets, setdatasets] = useState(null)
   const [frequencies, setfrequencies] = useState([])
+  const [currentPage, setcurrentPage] = useState(1)
+  const [total, settotal] = useState(null)
+
 
   useEffect(() => {
     var isRendered = true;
-    axios.get(ONS_API).then((response) => {
+    axios.get(`${ONS_API}?offset=${currentPage}`).then((response) => {
       if (isRendered) {
+        settotal(response.data.total_count)
         setdatasets(
           response.data.items.map((element) => {
             if (element.release_frequency === "Annual") {
@@ -35,7 +40,7 @@ function ONSDatasets() {
     return () => {
       isRendered = false;
     };
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     if (datasets) {
@@ -52,27 +57,40 @@ function ONSDatasets() {
   
   if (!datasets) return null;
   if (!frequencies) return null
-  return (<div>
-     <Text fontSize='2xl' as='b'> Datasets</Text>
-     <br/>
-     <Wrap spacing='15px' >
-        {datasets.map((element,id)=>{
-        return(<WrapItem>
-            <Feature
-            title={element.title}
-            desc={element.description}
-            keyword={element.keywords}
-            release={element.next_release}
-            release_frequency={element.release_frequency}
-            frequencies={frequencies}
-          />
-        </WrapItem>
-            
-        )
+  return (
+    <div>
+      <Text fontSize="2xl" as="b">
+        {" "}
+        Datasets  - Page {currentPage} out of {Math.floor(total/20)+1}
+      </Text>
+      <br />
+      <HStack>
+      <Button colorScheme='teal' variant='solid' onClick={()=>{setcurrentPage(currentPage-1)}}> Previous </Button>
+      <Button colorScheme='teal' variant='solid' onClick={()=>{setcurrentPage(currentPage+1)}}> Next </Button>
+      </HStack>
+      <Wrap spacing="15px">
+        {datasets.map((element, id) => {
+          return (
+            <WrapItem >
+              <Feature
+                title={element.title}
+                desc={element.description}
+                keyword={element.keywords}
+                release={element.next_release}
+                release_frequency={element.release_frequency}
+                frequencies={frequencies}
+              />
+            </WrapItem>
+          );
         })}
-    </Wrap>
-  </div>
-  )
+      </Wrap>
+      <HStack>
+      <Button colorScheme='teal' variant='solid' onClick={()=>{setcurrentPage(currentPage-1)}}> Previous </Button>
+      <Button colorScheme='teal' variant='solid' onClick={()=>{setcurrentPage(currentPage+1)}}> Next </Button>
+
+      </HStack>
+    </div>
+  );
 }
 
 export default ONSDatasets;
@@ -86,20 +104,21 @@ function Feature({ title, desc, keyword,release, frequencies, release_frequency,
                 {keyword.map((word,id_keyword)=>{
                     return( <WrapItem key={id_keyword}>
                         <Tag> {word}</Tag>
-                        
-                        
                         </WrapItem>
                     )
                 })}
-            
         </Wrap> 
         )
     }
 
     return (
-      <Box p={5} shadow="md" h="100%" w="500px" borderWidth="1px" {...rest}>
+      
+      
+      <LinkBox  p={5} shadow="md" bg='white' h="100%" w="500px" borderWidth="1px" {...rest}>
         <Heading mb={2} fontSize="xl">
-          {title}
+        <LinkOverlay href='#'>
+        {title}    </LinkOverlay>
+          
         </Heading>
         <Keywords />
         <Text mt={2} noOfLines={2} maxWidth="400px">
@@ -112,6 +131,6 @@ function Feature({ title, desc, keyword,release, frequencies, release_frequency,
           <Text ml='2' as="b">Frequency: </Text>
           <Tag ml='2' colorScheme={frequencies[release_frequency]}>{release_frequency}</Tag>
         </Box>
-      </Box>
+      </LinkBox>
     );
   }
