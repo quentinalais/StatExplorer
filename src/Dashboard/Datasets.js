@@ -1,4 +1,4 @@
-import { Box, Divider, Heading, Tag, Text, Wrap, WrapItem , HStack, Button, LinkBox, LinkOverlay} from '@chakra-ui/react'
+import { Box, Heading, Tag, Text, Wrap, WrapItem , HStack, Button, LinkBox, LinkOverlay} from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
@@ -72,11 +72,7 @@ function ONSDatasets() {
           return (
             <WrapItem >
               <Feature
-                title={element.title}
-                desc={element.description}
-                keyword={element.keywords}
-                release={element.next_release}
-                release_frequency={element.release_frequency}
+                element={element}
                 frequencies={frequencies}
               />
             </WrapItem>
@@ -94,13 +90,13 @@ function ONSDatasets() {
 
 export default ONSDatasets;
 
-function Feature({ title, desc, keyword,release, frequencies, release_frequency, ...rest }) {
+function Feature({ element, frequencies, ...rest }) {
     const Keywords = ()=>{
-        if(!keyword) return <div></div>
+        if(!element.keyword) return <div></div>
         return(
             <Wrap spacing='5px'>
            
-                {keyword.map((word,id_keyword)=>{
+                {element.keyword.map((word,id_keyword)=>{
                     return( <WrapItem key={id_keyword}>
                         <Tag> {word}</Tag>
                         </WrapItem>
@@ -116,19 +112,23 @@ function Feature({ title, desc, keyword,release, frequencies, release_frequency,
       <LinkBox  p={5} shadow="md" bg='white' h="100%" w="500px" borderWidth="1px" {...rest}>
         <Heading mb={2} fontSize="xl">
         <LinkOverlay href='#'>
-        {title}    </LinkOverlay>
+        {element.title}    </LinkOverlay>
           
         </Heading>
         <Keywords />
         <Text mt={2} noOfLines={2} maxWidth="400px">
-          {desc}
+          {element.description}
         </Text>
-        <Divider m={2} size="l" />
-        <Box display="flex" alignItems="baseline">
+        <Box display="flex" alignItems="baseline" >
           <Text as="b">Next release: </Text>
-          {release}
+          {element.next_release}
           <Text ml='2' as="b">Frequency: </Text>
-          <Tag ml='2' colorScheme={frequencies[release_frequency]}>{release_frequency}</Tag>
+          
+          <Tag ml='2' colorScheme={frequencies[element.release_frequency]}>{element.release_frequency}</Tag>
+         
+        </Box>
+        <Box display="flex" alignItems="baseline" >
+        <Text as="b">Dataset ID: </Text>{element.id}
         </Box>
       </LinkBox>
     );

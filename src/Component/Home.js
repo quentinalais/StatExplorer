@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Flex,
@@ -16,6 +16,10 @@ import {
   Container,
   Center
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import axios from 'axios';
+
+const ONS_WEBSITE = "https://www.ons.gov.uk"
 
 
 function StatsCard(props) {
@@ -38,23 +42,33 @@ function StatsCard(props) {
   );
 }
 
-const Feature = ({ heading, text }) => {
-  return (
-    <GridItem>
-      <chakra.h3 fontSize="xl" fontWeight="600">
-        {heading}
-      </chakra.h3>
-      <chakra.p>{text}</chakra.p>
-    </GridItem>
-  );
-};
-
-
-
 export const Home = () => {
+  const [data_inflation, setdata_inflation] = useState(null)
+  const [data_employment, setdata_employment] = useState(null)
+  const [data_gdp, setdata_gdp] = useState(null)
+  
+
+  useEffect(() => {
+    axios.get(ONS_WEBSITE+"/economy/inflationandpriceindices/timeseries/l55o/mm23/data").then(resp=>{
+      setdata_inflation((resp.data['months'].slice(-1)[0]))
+    }) 
+  }, [])
+
+  useEffect(() => {
+    axios.get(ONS_WEBSITE+"/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/lf24/lms/data").then(resp=>{
+      setdata_employment((resp.data['months'].slice(-1)[0]))
+    })
+    
+    axios.get(ONS_WEBSITE+"/economy/grossdomesticproductgdp/timeseries/ihyq/pn2/data").then(resp=>{
+      setdata_gdp((resp.data['quarters'].slice(-1)[0]))
+    })
+  }, [])
+  
+
+  
   return (
       <div>
-       <Box maxW="7xl" mx={'auto'} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
+       <Box maxW="7xl" mx={'auto'} pt={100} px={{ base: 2, sm: 12, md: 17 }}>
       <chakra.h1
         textAlign={'center'}
         fontSize={'4xl'}
@@ -63,9 +77,9 @@ export const Home = () => {
         How is the <Text as='span' color="teal"> UK </Text> going?
       </chakra.h1>
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-        <StatsCard title={'Employment Rate'} stat={'75.5%'} />
-        <StatsCard title={'Inflation'} stat={'8.8%'} />
-        <StatsCard title={'GDP'} stat={'0.2%'} />
+        <StatsCard title={`Inflation ${data_inflation && data_inflation.label}`} stat={`${data_inflation && data_inflation.value}%`} />
+        <StatsCard title={`Employment Rate ${data_employment && data_employment.label}`} stat={`${data_employment && data_employment.value}%`} />
+        <StatsCard title={`GDP ${data_gdp && data_gdp.label}`} stat={`${data_gdp && data_gdp.value}%`} />
       </SimpleGrid>
     </Box>
     <Box as={Container} maxW="7xl" mt={14} p={4}>
@@ -94,31 +108,7 @@ export const Home = () => {
           </Flex>
         </GridItem>
       </Grid>
-      <Divider mt={12} mb={12} />
-      <Grid
-        templateColumns={{
-          base: 'repeat(1, 1fr)',
-          sm: 'repeat(2, 1fr)',
-          md: 'repeat(4, 1fr)',
-        }}
-        gap={{ base: '8', sm: '12', md: '16' }}>
-        <Feature
-          heading={'Business, industry and trade'}
-          text={'Short text describing one of you features/service'}
-        />
-        <Feature
-          heading={'Economy'}
-          text={'Short text describing one of you features/service'}
-        />
-        <Feature
-          heading={'Employment and labour market'}
-          text={'Short text describing one of you features/service'}
-        />
-        <Feature
-          heading={'People, population and community'}
-          text={'Short text describing one of you features/service'}
-        />
-      </Grid>
+      <Divider mt={12} mb={12} />   
     </Box>
    
       </div>
