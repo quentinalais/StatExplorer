@@ -16,7 +16,6 @@ import {
 import {
   FiHome,
   FiCompass,
-  FiSettings,
   FiMenu,
 } from 'react-icons/fi';
 
@@ -24,8 +23,7 @@ import {
 
 const LinkItems = [
   { name: 'Home', icon: FiHome ,path:'/'},
-  { name: 'Explore', icon: FiCompass ,path:'/Explore'},
-  { name: 'Settings', icon: FiSettings ,path:''},
+  { name: 'Explore', icon: FiCompass ,path:'/Explore'}
 ];
 
 export default function SimpleSidebar({ children }) {

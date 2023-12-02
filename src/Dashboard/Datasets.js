@@ -1,17 +1,16 @@
-import { Box, Heading, Tag, Text, Wrap, WrapItem , HStack, Button, LinkBox, LinkOverlay} from '@chakra-ui/react'
+import { Box, Heading, Tag, Card, Text, Wrap, WrapItem, HStack, Button, LinkBox, LinkOverlay, Flex } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-
 
 const ONS_API = 'https://api.beta.ons.gov.uk/v1/datasets'
 
 const color_palette = ["orange",
-"green",
-"red",
-"blue",
-"cyan",
-"pink",
-"purple",
+  "green",
+  "red",
+  "blue",
+  "cyan",
+  "pink",
+  "purple",
 ]
 
 function ONSDatasets() {
@@ -53,20 +52,32 @@ function ONSDatasets() {
       setfrequencies(result);
     }
   }, [datasets]);
-  
+
+  console.log(datasets)
+
   if (!datasets) return null;
   if (!frequencies) return null
   return (
     <div>
-      <Text fontSize="2xl" as="b">
-        {" "}
-        Datasets  - Page {currentPage} out of {Math.floor(total/20)+1}
-      </Text>
+
+      <Card>
+        <Box p="4">
+          <Heading color='cyan.900' as='h1' size='xl' noOfLines={1}>ONS API Datasets </Heading>
+          <Text> List of all datasets available via the ONS API.  </Text>
+        </Box>
+      </Card>
+
       <br />
-      <HStack>
-      <Button colorScheme='teal' variant='solid' onClick={()=>{setcurrentPage(currentPage-1)}}> Previous </Button>
-      <Button colorScheme='teal' variant='solid' onClick={()=>{setcurrentPage(currentPage+1)}}> Next </Button>
-      </HStack>
+      <Flex pb="5" >
+        <HStack >
+          <Button colorScheme='teal' size='xs' variant='outline' onClick={() => { setcurrentPage(currentPage - 1) }}> Previous </Button>
+          <Button colorScheme='teal' size='xs' variant='outline' onClick={() => { setcurrentPage(currentPage + 1) }}> Next </Button>
+          <Text pt="4" fontSize="sm" align='right'>
+        Page {currentPage} out of {Math.floor(total / 20) + 1}
+      </Text>
+        </HStack>
+      </Flex>
+
       <Wrap spacing="15px">
         {datasets.map((element, id) => {
           return (
@@ -80,10 +91,21 @@ function ONSDatasets() {
         })}
       </Wrap>
       <HStack>
-      <Button colorScheme='teal' variant='solid' onClick={()=>{setcurrentPage(currentPage-1)}}> Previous </Button>
-      <Button colorScheme='teal' variant='solid' onClick={()=>{setcurrentPage(currentPage+1)}}> Next </Button>
+
 
       </HStack>
+
+      <Text pt="2" fontSize="sm" align='right'>
+        Page {currentPage} out of {Math.floor(total / 20) + 1}
+      </Text>
+
+
+      <Flex pb="5" direction="row-reverse">
+        <HStack >
+          <Button colorScheme='teal' size='xs' variant='outline' onClick={() => { setcurrentPage(currentPage - 1) }}> Previous </Button>
+          <Button colorScheme='teal' size='xs' variant='outline' onClick={() => { setcurrentPage(currentPage + 1) }}> Next </Button>
+        </HStack>
+      </Flex>
     </div>
   );
 }
@@ -91,45 +113,45 @@ function ONSDatasets() {
 export default ONSDatasets;
 
 function Feature({ element, frequencies, ...rest }) {
-    const Keywords = ()=>{
-        if(!element.keyword) return <div></div>
-        return(
-            <Wrap spacing='5px'>
-           
-                {element.keyword.map((word,id_keyword)=>{
-                    return( <WrapItem key={id_keyword}>
-                        <Tag> {word}</Tag>
-                        </WrapItem>
-                    )
-                })}
-        </Wrap> 
-        )
-    }
-
+  const Keywords = () => {
+    if (!element.keyword) return <div></div>
     return (
-      
-      
-      <LinkBox  p={5} shadow="md" bg='white' h="100%" w="500px" borderWidth="1px" {...rest}>
-        <Heading mb={2} fontSize="xl">
-        <LinkOverlay href='#'>
-        {element.title}    </LinkOverlay>
-          
-        </Heading>
-        <Keywords />
-        <Text mt={2} noOfLines={2} maxWidth="400px">
-          {element.description}
-        </Text>
-        <Box display="flex" alignItems="baseline" >
-          <Text as="b">Next release: </Text>
-          {element.next_release}
-          <Text ml='2' as="b">Frequency: </Text>
-          
-          <Tag ml='2' colorScheme={frequencies[element.release_frequency]}>{element.release_frequency}</Tag>
-         
-        </Box>
-        <Box display="flex" alignItems="baseline" >
-        <Text as="b">Dataset ID: </Text>{element.id}
-        </Box>
-      </LinkBox>
-    );
+      <Wrap spacing='5px'>
+
+        {element.keyword.map((word, id_keyword) => {
+          return (<WrapItem key={id_keyword}>
+            <Tag> {word}</Tag>
+          </WrapItem>
+          )
+        })}
+      </Wrap>
+    )
   }
+
+  return (
+
+
+    <LinkBox p={5} shadow="md" bg='white' h="100%" w="500px" borderWidth="1px" {...rest}>
+      <Heading mb={2} fontSize="xl" >
+        <LinkOverlay href={element.qmi.href} target="_blank">
+          {element.title}    </LinkOverlay>
+
+      </Heading>
+      <Keywords />
+      <Text mt={2} noOfLines={2} maxWidth="400px">
+        {element.description}
+      </Text>
+      <Box display="flex" alignItems="baseline" >
+        <Text as="b">Next release: </Text>
+        {element.next_release}
+        <Text ml='2' as="b">Frequency: </Text>
+
+        <Tag ml='2' colorScheme={frequencies[element.release_frequency]}>{element.release_frequency}</Tag>
+
+      </Box>
+      <Box display="flex" alignItems="baseline" >
+        <Text as="b">Dataset ID: </Text>{element.id}
+      </Box>
+    </LinkBox>
+  );
+}
