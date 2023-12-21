@@ -1,7 +1,8 @@
 import React from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import TaskReminder from './TaskReminder';
 import ONSDatasets from './Datasets';
+import Inflation from './Inflation';
+
 
 
 export const Dashboard = () => {
@@ -10,14 +11,14 @@ export const Dashboard = () => {
       <Tabs>
         <TabList>
           <Tab  _selected={{ color: 'teal', fontWeight:'bold'}}> Datasets</Tab>
-          <Tab _selected={{ color: 'teal', fontWeight:'bold'}}>Task Reminder</Tab>
+          <Tab _selected={{ color: 'teal', fontWeight:'bold'}}>UK Inflation</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <ONSDatasets />
+            <ONSDatasets key="1"/>
           </TabPanel>
           <TabPanel>
-            <TaskReminder />
+            <Inflation key="2" />
           </TabPanel>
         </TabPanels>
       </Tabs>

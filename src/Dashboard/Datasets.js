@@ -1,6 +1,7 @@
-import { Box, Heading, Tag, Card, Text, Wrap, WrapItem, HStack, Button, LinkBox, LinkOverlay, Flex } from '@chakra-ui/react'
+import { Box, Heading, Tag, Text, Wrap, WrapItem, HStack, Button, LinkBox, LinkOverlay, Flex } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { CardCustom } from '../Component/CardCustom'; 
 
 const ONS_API = 'https://api.beta.ons.gov.uk/v1/datasets'
 
@@ -53,19 +54,14 @@ function ONSDatasets() {
     }
   }, [datasets]);
 
-  console.log(datasets)
 
   if (!datasets) return null;
   if (!frequencies) return null
   return (
     <div>
-
-      <Card>
-        <Box p="4">
-          <Heading color='cyan.900' as='h1' size='xl' noOfLines={1}>ONS API Datasets </Heading>
-          <Text> List of all datasets available via the ONS API.  </Text>
-        </Box>
-      </Card>
+      <CardCustom title="ONS API Datasets" >
+        List of all datasets available via the ONS API.
+      </CardCustom>
 
       <br />
       <Flex pb="5" >
@@ -81,7 +77,7 @@ function ONSDatasets() {
       <Wrap spacing="15px">
         {datasets.map((element, id) => {
           return (
-            <WrapItem >
+            <WrapItem key={id}>
               <Feature
                 element={element}
                 frequencies={frequencies}
