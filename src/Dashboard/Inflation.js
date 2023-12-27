@@ -44,8 +44,9 @@ function Inflation() {
       dataLabels: {
         enabled: false,
       },
+      colors:['#065666'],
       title: {
-        text: "Inflation by Month",
+        text: "UK Inflation by Month",
         align: "left",
       }
     };
@@ -58,15 +59,17 @@ function Inflation() {
         This page sheds light on the UK Inflation using <b>ApexCharts.js</b>{" "}
         graphs.
       </CardCustom>
-
       <br />
     {(data)?
+  <CardCustom> 
     <Chart 
         series={getSeries(data)} 
         options={getOptions(data)} 
         type="bar"
         width="800"
-    />:<p>Loading</p>
+    />
+  </CardCustom>
+    :<p>Loading</p>
 
     }
       

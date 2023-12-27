@@ -103,7 +103,7 @@ export const Home = () => {
         <GridItem>
           <Flex>
             <chakra.p>
-              All data used for this project is extracted from the API provided by the <Text target="_blank" href="https://www.ons.gov.uk/" as='a' color="teal"> Office for National Statistics  </Text>(ONS).
+              The data used for this project is extracted from the API provided by the <Text target="_blank" href="https://www.ons.gov.uk/" as='a' color="teal"> Office for National Statistics  </Text>(ONS).
             </chakra.p>
           </Flex>
         </GridItem>
