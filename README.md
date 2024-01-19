@@ -6,6 +6,10 @@
 
 This React project serves as a showcase for integrating and visualizing UK statistics using React, ApexCharts, and ChakraUI libraries. The goal is to create an interactive and visually appealing dashboard that provides insights into various UK statistical data.
 
+### Deployment 
+
+StatExplorer project is hosted on :round_pushpin: **Netlify**, providing a convenient and accessible way to explore UK statistical data. The live dashboard is available at [StatExplorer Site](https://stat-explorer.netlify.app/).
+
 ### Features:
 
 #### 1. Data Integration:
@@ -26,7 +30,3 @@ Leverages ChakraUI's design system for consistent styling and theming.
 
 Follows a modular component-based architecture for easy maintenance and scalability.
 Components are designed to encapsulate specific functionalities, making the codebase modular and readable.
-
-### Deployment 
-
-StatExplorer project is hosted on :round_pushpin: **Netlify**, providing a convenient and accessible way to explore UK statistical data. The live dashboard is available at [StatExplorer Site](https://stat-explorer.netlify.app/).
