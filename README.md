@@ -1,6 +1,6 @@
 # StatExplorer
-
-## React UK Statistics Dashboard Project
+:bar_chart:
+## React UK Statistics Dashboard Project 	
 
 ### Overview:
 
@@ -26,3 +26,7 @@ Leverages ChakraUI's design system for consistent styling and theming.
 
 Follows a modular component-based architecture for easy maintenance and scalability.
 Components are designed to encapsulate specific functionalities, making the codebase modular and readable.
+
+### Deployment 
+
+StatExplorer project is hosted on :round_pushpin: **Netlify**, providing a convenient and accessible way to explore UK statistical data. The live dashboard is available at [StatExplorer Site](https://stat-explorer.netlify.app/).
